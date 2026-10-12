@@ -1,0 +1,1449 @@
+{
+ "answers": [
+  {
+   "name": "mínimo válido: normaliza texto, e-mail e valor; campo condicional oculto",
+   "schema": {
+    "steps": [
+     {
+      "id": "contato",
+      "title": "Seus dados"
+     },
+     {
+      "id": "projeto",
+      "title": "Seu projeto"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "required": true,
+      "lead_field": "name",
+      "step": "contato"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "contato"
+     },
+     {
+      "key": "telefone",
+      "type": "phone",
+      "label": "Telefone",
+      "lead_field": "phone",
+      "step": "contato"
+     },
+     {
+      "key": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "lead_field": "company_name",
+      "step": "contato"
+     },
+     {
+      "key": "orcamento",
+      "type": "currency",
+      "label": "Orçamento",
+      "required": true,
+      "step": "projeto",
+      "min": 0
+     },
+     {
+      "key": "prazo",
+      "type": "select",
+      "label": "Prazo",
+      "required": true,
+      "step": "projeto",
+      "options": [
+       {
+        "value": "ate_30",
+        "label": "Até 30 dias"
+       },
+       {
+        "value": "mais_90",
+        "label": "Mais de 90 dias"
+       }
+      ]
+     },
+     {
+      "key": "decisor",
+      "type": "checkbox",
+      "label": "Decido a compra",
+      "step": "projeto"
+     },
+     {
+      "key": "tem_cnpj",
+      "type": "checkbox",
+      "label": "Tenho CNPJ",
+      "step": "projeto"
+     },
+     {
+      "key": "cnpj",
+      "type": "text",
+      "label": "CNPJ",
+      "step": "projeto",
+      "max_length": 18
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "cnpj",
+     "show_if": {
+      "all": [
+       {
+        "field": "tem_cnpj",
+        "op": "is_true"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {
+    "nome": "  Ana ",
+    "email": " ANA@X.com ",
+    "orcamento": "1500,5",
+    "prazo": "ate_30"
+   },
+   "expected": {
+    "clean": {
+     "nome": "Ana",
+     "email": "ana@x.com",
+     "orcamento": 1500.5,
+     "prazo": "ate_30"
+    },
+    "hidden": [
+     "cnpj"
+    ],
+    "errors": {}
+   }
+  },
+  {
+   "name": "todos os campos, condicional visível",
+   "schema": {
+    "steps": [
+     {
+      "id": "contato",
+      "title": "Seus dados"
+     },
+     {
+      "id": "projeto",
+      "title": "Seu projeto"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "required": true,
+      "lead_field": "name",
+      "step": "contato"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "contato"
+     },
+     {
+      "key": "telefone",
+      "type": "phone",
+      "label": "Telefone",
+      "lead_field": "phone",
+      "step": "contato"
+     },
+     {
+      "key": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "lead_field": "company_name",
+      "step": "contato"
+     },
+     {
+      "key": "orcamento",
+      "type": "currency",
+      "label": "Orçamento",
+      "required": true,
+      "step": "projeto",
+      "min": 0
+     },
+     {
+      "key": "prazo",
+      "type": "select",
+      "label": "Prazo",
+      "required": true,
+      "step": "projeto",
+      "options": [
+       {
+        "value": "ate_30",
+        "label": "Até 30 dias"
+       },
+       {
+        "value": "mais_90",
+        "label": "Mais de 90 dias"
+       }
+      ]
+     },
+     {
+      "key": "decisor",
+      "type": "checkbox",
+      "label": "Decido a compra",
+      "step": "projeto"
+     },
+     {
+      "key": "tem_cnpj",
+      "type": "checkbox",
+      "label": "Tenho CNPJ",
+      "step": "projeto"
+     },
+     {
+      "key": "cnpj",
+      "type": "text",
+      "label": "CNPJ",
+      "step": "projeto",
+      "max_length": 18
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "cnpj",
+     "show_if": {
+      "all": [
+       {
+        "field": "tem_cnpj",
+        "op": "is_true"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {
+    "nome": "Bia",
+    "email": "b@x.com",
+    "telefone": "(11) 91234-5678",
+    "empresa": "Acme",
+    "orcamento": 8000,
+    "prazo": "mais_90",
+    "decisor": true,
+    "tem_cnpj": true,
+    "cnpj": "12.345.678/0001-99"
+   },
+   "expected": {
+    "clean": {
+     "nome": "Bia",
+     "email": "b@x.com",
+     "telefone": "(11) 91234-5678",
+     "empresa": "Acme",
+     "orcamento": 8000,
+     "prazo": "mais_90",
+     "decisor": true,
+     "tem_cnpj": true,
+     "cnpj": "12.345.678/0001-99"
+    },
+    "hidden": [],
+    "errors": {}
+   }
+  },
+  {
+   "name": "condicional oculto descarta a resposta enviada",
+   "schema": {
+    "steps": [
+     {
+      "id": "contato",
+      "title": "Seus dados"
+     },
+     {
+      "id": "projeto",
+      "title": "Seu projeto"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "required": true,
+      "lead_field": "name",
+      "step": "contato"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "contato"
+     },
+     {
+      "key": "telefone",
+      "type": "phone",
+      "label": "Telefone",
+      "lead_field": "phone",
+      "step": "contato"
+     },
+     {
+      "key": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "lead_field": "company_name",
+      "step": "contato"
+     },
+     {
+      "key": "orcamento",
+      "type": "currency",
+      "label": "Orçamento",
+      "required": true,
+      "step": "projeto",
+      "min": 0
+     },
+     {
+      "key": "prazo",
+      "type": "select",
+      "label": "Prazo",
+      "required": true,
+      "step": "projeto",
+      "options": [
+       {
+        "value": "ate_30",
+        "label": "Até 30 dias"
+       },
+       {
+        "value": "mais_90",
+        "label": "Mais de 90 dias"
+       }
+      ]
+     },
+     {
+      "key": "decisor",
+      "type": "checkbox",
+      "label": "Decido a compra",
+      "step": "projeto"
+     },
+     {
+      "key": "tem_cnpj",
+      "type": "checkbox",
+      "label": "Tenho CNPJ",
+      "step": "projeto"
+     },
+     {
+      "key": "cnpj",
+      "type": "text",
+      "label": "CNPJ",
+      "step": "projeto",
+      "max_length": 18
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "cnpj",
+     "show_if": {
+      "all": [
+       {
+        "field": "tem_cnpj",
+        "op": "is_true"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {
+    "nome": "Caio",
+    "email": "c@x.com",
+    "orcamento": 10,
+    "prazo": "ate_30",
+    "tem_cnpj": false,
+    "cnpj": "999"
+   },
+   "expected": {
+    "clean": {
+     "nome": "Caio",
+     "email": "c@x.com",
+     "orcamento": 10,
+     "prazo": "ate_30",
+     "tem_cnpj": false
+    },
+    "hidden": [
+     "cnpj"
+    ],
+    "errors": {}
+   }
+  },
+  {
+   "name": "obrigatórios ausentes",
+   "schema": {
+    "steps": [
+     {
+      "id": "contato",
+      "title": "Seus dados"
+     },
+     {
+      "id": "projeto",
+      "title": "Seu projeto"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "required": true,
+      "lead_field": "name",
+      "step": "contato"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "contato"
+     },
+     {
+      "key": "telefone",
+      "type": "phone",
+      "label": "Telefone",
+      "lead_field": "phone",
+      "step": "contato"
+     },
+     {
+      "key": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "lead_field": "company_name",
+      "step": "contato"
+     },
+     {
+      "key": "orcamento",
+      "type": "currency",
+      "label": "Orçamento",
+      "required": true,
+      "step": "projeto",
+      "min": 0
+     },
+     {
+      "key": "prazo",
+      "type": "select",
+      "label": "Prazo",
+      "required": true,
+      "step": "projeto",
+      "options": [
+       {
+        "value": "ate_30",
+        "label": "Até 30 dias"
+       },
+       {
+        "value": "mais_90",
+        "label": "Mais de 90 dias"
+       }
+      ]
+     },
+     {
+      "key": "decisor",
+      "type": "checkbox",
+      "label": "Decido a compra",
+      "step": "projeto"
+     },
+     {
+      "key": "tem_cnpj",
+      "type": "checkbox",
+      "label": "Tenho CNPJ",
+      "step": "projeto"
+     },
+     {
+      "key": "cnpj",
+      "type": "text",
+      "label": "CNPJ",
+      "step": "projeto",
+      "max_length": 18
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "cnpj",
+     "show_if": {
+      "all": [
+       {
+        "field": "tem_cnpj",
+        "op": "is_true"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {},
+   "expected": {
+    "clean": {},
+    "hidden": [
+     "cnpj"
+    ],
+    "errors": {
+     "nome": "Campo obrigatório.",
+     "email": "Campo obrigatório.",
+     "orcamento": "Campo obrigatório.",
+     "prazo": "Campo obrigatório."
+    }
+   }
+  },
+  {
+   "name": "valores inválidos por tipo",
+   "schema": {
+    "steps": [
+     {
+      "id": "contato",
+      "title": "Seus dados"
+     },
+     {
+      "id": "projeto",
+      "title": "Seu projeto"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "required": true,
+      "lead_field": "name",
+      "step": "contato"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "contato"
+     },
+     {
+      "key": "telefone",
+      "type": "phone",
+      "label": "Telefone",
+      "lead_field": "phone",
+      "step": "contato"
+     },
+     {
+      "key": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "lead_field": "company_name",
+      "step": "contato"
+     },
+     {
+      "key": "orcamento",
+      "type": "currency",
+      "label": "Orçamento",
+      "required": true,
+      "step": "projeto",
+      "min": 0
+     },
+     {
+      "key": "prazo",
+      "type": "select",
+      "label": "Prazo",
+      "required": true,
+      "step": "projeto",
+      "options": [
+       {
+        "value": "ate_30",
+        "label": "Até 30 dias"
+       },
+       {
+        "value": "mais_90",
+        "label": "Mais de 90 dias"
+       }
+      ]
+     },
+     {
+      "key": "decisor",
+      "type": "checkbox",
+      "label": "Decido a compra",
+      "step": "projeto"
+     },
+     {
+      "key": "tem_cnpj",
+      "type": "checkbox",
+      "label": "Tenho CNPJ",
+      "step": "projeto"
+     },
+     {
+      "key": "cnpj",
+      "type": "text",
+      "label": "CNPJ",
+      "step": "projeto",
+      "max_length": 18
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "cnpj",
+     "show_if": {
+      "all": [
+       {
+        "field": "tem_cnpj",
+        "op": "is_true"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {
+    "nome": "x",
+    "email": "abc",
+    "telefone": "12",
+    "orcamento": -5,
+    "prazo": "zzz",
+    "decisor": "sim"
+   },
+   "expected": {
+    "clean": {
+     "nome": "x"
+    },
+    "hidden": [
+     "cnpj"
+    ],
+    "errors": {
+     "email": "E-mail inválido.",
+     "telefone": "Telefone inválido.",
+     "orcamento": "Número inválido.",
+     "prazo": "Escolha uma opção válida.",
+     "decisor": "Resposta inválida."
+    }
+   }
+  },
+  {
+   "name": "corpo que não é objeto",
+   "schema": {
+    "steps": [
+     {
+      "id": "contato",
+      "title": "Seus dados"
+     },
+     {
+      "id": "projeto",
+      "title": "Seu projeto"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "required": true,
+      "lead_field": "name",
+      "step": "contato"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "contato"
+     },
+     {
+      "key": "telefone",
+      "type": "phone",
+      "label": "Telefone",
+      "lead_field": "phone",
+      "step": "contato"
+     },
+     {
+      "key": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "lead_field": "company_name",
+      "step": "contato"
+     },
+     {
+      "key": "orcamento",
+      "type": "currency",
+      "label": "Orçamento",
+      "required": true,
+      "step": "projeto",
+      "min": 0
+     },
+     {
+      "key": "prazo",
+      "type": "select",
+      "label": "Prazo",
+      "required": true,
+      "step": "projeto",
+      "options": [
+       {
+        "value": "ate_30",
+        "label": "Até 30 dias"
+       },
+       {
+        "value": "mais_90",
+        "label": "Mais de 90 dias"
+       }
+      ]
+     },
+     {
+      "key": "decisor",
+      "type": "checkbox",
+      "label": "Decido a compra",
+      "step": "projeto"
+     },
+     {
+      "key": "tem_cnpj",
+      "type": "checkbox",
+      "label": "Tenho CNPJ",
+      "step": "projeto"
+     },
+     {
+      "key": "cnpj",
+      "type": "text",
+      "label": "CNPJ",
+      "step": "projeto",
+      "max_length": 18
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "cnpj",
+     "show_if": {
+      "all": [
+       {
+        "field": "tem_cnpj",
+        "op": "is_true"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": [],
+   "expected": {
+    "clean": {},
+    "hidden": [],
+    "errors": {
+     "_": "Dados inválidos."
+    }
+   }
+  },
+  {
+   "name": "limites, datas, múltipla escolha e consentimento",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     },
+     {
+      "key": "interesses",
+      "type": "multiselect",
+      "label": "Interesses",
+      "options": [
+       {
+        "value": "a",
+        "label": "A"
+       },
+       {
+        "value": "b",
+        "label": "B"
+       },
+       {
+        "value": "c",
+        "label": "C"
+       }
+      ]
+     },
+     {
+      "key": "idade",
+      "type": "number",
+      "label": "Idade",
+      "min": 18,
+      "max": 99
+     },
+     {
+      "key": "data",
+      "type": "date",
+      "label": "Data"
+     },
+     {
+      "key": "obs",
+      "type": "textarea",
+      "label": "Obs",
+      "max_length": 5
+     },
+     {
+      "key": "aceite",
+      "type": "consent",
+      "label": "Aceito"
+     }
+    ]
+   },
+   "logic": [],
+   "answers": {
+    "email": "a@b.co",
+    "interesses": [
+     "a",
+     "a",
+     "c"
+    ],
+    "idade": 17,
+    "data": "2025-02-30",
+    "obs": "123456",
+    "aceite": false
+   },
+   "expected": {
+    "clean": {
+     "email": "a@b.co",
+     "interesses": [
+      "a",
+      "c"
+     ]
+    },
+    "hidden": [],
+    "errors": {
+     "idade": "Valor mínimo: 18.",
+     "data": "Data inválida.",
+     "obs": "Máximo de 5 caracteres.",
+     "aceite": "Marque esta opção para continuar."
+    }
+   }
+  },
+  {
+   "name": "limites no extremo, ano bissexto e opção inexistente",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     },
+     {
+      "key": "interesses",
+      "type": "multiselect",
+      "label": "Interesses",
+      "options": [
+       {
+        "value": "a",
+        "label": "A"
+       },
+       {
+        "value": "b",
+        "label": "B"
+       },
+       {
+        "value": "c",
+        "label": "C"
+       }
+      ]
+     },
+     {
+      "key": "idade",
+      "type": "number",
+      "label": "Idade",
+      "min": 18,
+      "max": 99
+     },
+     {
+      "key": "data",
+      "type": "date",
+      "label": "Data"
+     },
+     {
+      "key": "obs",
+      "type": "textarea",
+      "label": "Obs",
+      "max_length": 5
+     },
+     {
+      "key": "aceite",
+      "type": "consent",
+      "label": "Aceito"
+     }
+    ]
+   },
+   "logic": [],
+   "answers": {
+    "email": "a@b.co",
+    "idade": 99,
+    "data": "2024-02-29",
+    "obs": "12345",
+    "aceite": true,
+    "interesses": [
+     "x"
+    ]
+   },
+   "expected": {
+    "clean": {
+     "email": "a@b.co",
+     "idade": 99,
+     "data": "2024-02-29",
+     "obs": "12345",
+     "aceite": true
+    },
+    "hidden": [],
+    "errors": {
+     "interesses": "Escolha opções válidas."
+    }
+   }
+  },
+  {
+   "name": "condição \"qualquer uma\": nenhuma verdadeira oculta",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     },
+     {
+      "key": "motivo",
+      "type": "select",
+      "label": "Motivo",
+      "options": [
+       {
+        "value": "a",
+        "label": "A"
+       },
+       {
+        "value": "b",
+        "label": "B"
+       }
+      ]
+     },
+     {
+      "key": "detalhe",
+      "type": "text",
+      "label": "Detalhe"
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "detalhe",
+     "show_if": {
+      "any": [
+       {
+        "field": "motivo",
+        "op": "eq",
+        "value": "b"
+       },
+       {
+        "field": "email",
+        "op": "contains",
+        "value": "vip"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {
+    "email": "x@y.com",
+    "motivo": "a",
+    "detalhe": "zzz"
+   },
+   "expected": {
+    "clean": {
+     "email": "x@y.com",
+     "motivo": "a"
+    },
+    "hidden": [
+     "detalhe"
+    ],
+    "errors": {}
+   }
+  },
+  {
+   "name": "condição \"qualquer uma\": uma verdadeira mostra",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     },
+     {
+      "key": "motivo",
+      "type": "select",
+      "label": "Motivo",
+      "options": [
+       {
+        "value": "a",
+        "label": "A"
+       },
+       {
+        "value": "b",
+        "label": "B"
+       }
+      ]
+     },
+     {
+      "key": "detalhe",
+      "type": "text",
+      "label": "Detalhe"
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "detalhe",
+     "show_if": {
+      "any": [
+       {
+        "field": "motivo",
+        "op": "eq",
+        "value": "b"
+       },
+       {
+        "field": "email",
+        "op": "contains",
+        "value": "vip"
+       }
+      ]
+     }
+    }
+   ],
+   "answers": {
+    "email": "vip@y.com",
+    "motivo": "a",
+    "detalhe": "zzz"
+   },
+   "expected": {
+    "clean": {
+     "email": "vip@y.com",
+     "motivo": "a",
+     "detalhe": "zzz"
+    },
+    "hidden": [],
+    "errors": {}
+   }
+  }
+ ],
+ "definitions": [
+  {
+   "name": "definição mínima válida",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "lead_field": "name"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": []
+  },
+  {
+   "name": "sem perguntas",
+   "schema": {
+    "steps": [],
+    "fields": []
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Adicione ao menos uma pergunta.",
+    "O formulário precisa de uma pergunta OBRIGATÓRIA de e-mail ou telefone vinculada ao lead."
+   ]
+  },
+  {
+   "name": "chave repetida e tipo inválido",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "a",
+      "type": "text",
+      "label": "A"
+     },
+     {
+      "key": "a",
+      "type": "text",
+      "label": "A2"
+     },
+     {
+      "key": "b",
+      "type": "zzz",
+      "label": "B"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Chave repetida: a.",
+    "Pergunta b: tipo inválido."
+   ]
+  },
+  {
+   "name": "lista com uma só opção",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "s",
+      "type": "select",
+      "label": "S",
+      "options": [
+       {
+        "value": "a",
+        "label": "A"
+       }
+      ]
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Pergunta s: informe de 2 a 50 opções."
+   ]
+  },
+  {
+   "name": "etapa inexistente",
+   "schema": {
+    "steps": [
+     {
+      "id": "s1",
+      "title": "Um"
+     }
+    ],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "step": "s2"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email",
+      "step": "s1"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Pergunta nome: etapa inexistente."
+   ]
+  },
+  {
+   "name": "condição depende de pergunta posterior",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     },
+     {
+      "key": "a",
+      "type": "text",
+      "label": "A"
+     },
+     {
+      "key": "b",
+      "type": "text",
+      "label": "B"
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "a",
+     "show_if": {
+      "all": [
+       {
+        "field": "b",
+        "op": "eq",
+        "value": "x"
+       }
+      ]
+     }
+    }
+   ],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Condição de a: só pode depender de perguntas ANTERIORES."
+   ]
+  },
+  {
+   "name": "contato obrigatório não pode ser condicional",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "lead_field": "name"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "email",
+     "show_if": {
+      "all": [
+       {
+        "field": "nome",
+        "op": "answered"
+       }
+      ]
+     }
+    }
+   ],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "A pergunta email (contato obrigatório) não pode ser condicional."
+   ]
+  },
+  {
+   "name": "operador desconhecido",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     },
+     {
+      "key": "a",
+      "type": "text",
+      "label": "A"
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "a",
+     "show_if": {
+      "all": [
+       {
+        "field": "email",
+        "op": "hack"
+       }
+      ]
+     }
+    }
+   ],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Condição de a: operador inválido."
+   ]
+  },
+  {
+   "name": "condição para pergunta inexistente",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "lead_field": "name"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [
+    {
+     "target": "fantasma",
+     "show_if": {
+      "all": [
+       {
+        "field": "email",
+        "op": "answered"
+       }
+      ]
+     }
+    }
+   ],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Condição para pergunta inexistente: fantasma."
+   ]
+  },
+  {
+   "name": "consentimento sem texto",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "nome",
+      "type": "text",
+      "label": "Nome",
+      "lead_field": "name"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": ""
+   },
+   "expected": [
+    "Informe o texto do consentimento/aviso de privacidade (até 600 caracteres)."
+   ]
+  },
+  {
+   "name": "vínculo de e-mail exige tipo e-mail",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "e",
+      "type": "text",
+      "label": "E",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Pergunta e: o vínculo «email» exige o tipo e-mail."
+   ]
+  },
+  {
+   "name": "duas perguntas ligadas ao mesmo campo do lead",
+   "schema": {
+    "steps": [],
+    "fields": [
+     {
+      "key": "n1",
+      "type": "text",
+      "label": "N1",
+      "lead_field": "name"
+     },
+     {
+      "key": "n2",
+      "type": "text",
+      "label": "N2",
+      "lead_field": "name"
+     },
+     {
+      "key": "email",
+      "type": "email",
+      "label": "E-mail",
+      "required": true,
+      "lead_field": "email"
+     }
+    ]
+   },
+   "logic": [],
+   "consent": {
+    "required": true,
+    "text": "Concordo com o contato comercial."
+   },
+   "expected": [
+    "Mais de uma pergunta vinculada a «name»."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1803 @@
+{
+ "valid": [
+  {
+   "name": "modelo demo: tudo atende → 100, quente, qualificado",
+   "rules": [
+    {
+     "id": "r1",
+     "label": "Orçamento acima de R$ 5.000",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 25
+    },
+    {
+     "id": "r2",
+     "label": "Contratar em até 30 dias",
+     "field_key": "prazo",
+     "operator": "eq",
+     "condition": "ate_30",
+     "points": 25
+    },
+    {
+     "id": "r3",
+     "label": "Participa da decisão",
+     "field_key": "decisor",
+     "operator": "is_true",
+     "condition": null,
+     "points": 20
+    },
+    {
+     "id": "r4",
+     "label": "Mais de 10 funcionários",
+     "field_key": "funcionarios",
+     "operator": "gt",
+     "condition": 10,
+     "points": 15
+    },
+    {
+     "id": "r5",
+     "label": "Problema prioritário declarado",
+     "field_key": "problema",
+     "operator": "answered",
+     "condition": null,
+     "points": 15
+    }
+   ],
+   "answers": {
+    "orcamento": 8000,
+    "prazo": "ate_30",
+    "decisor": true,
+    "funcionarios": 50,
+    "problema": "Sem processo comercial"
+   },
+   "expected": {
+    "raw_total": 100,
+    "score": 100,
+    "classification": "hot",
+    "qualified": true,
+    "applied": [
+     {
+      "rule_id": "r1",
+      "label": "Orçamento acima de R$ 5.000",
+      "field_key": "orcamento",
+      "points": 25
+     },
+     {
+      "rule_id": "r2",
+      "label": "Contratar em até 30 dias",
+      "field_key": "prazo",
+      "points": 25
+     },
+     {
+      "rule_id": "r3",
+      "label": "Participa da decisão",
+      "field_key": "decisor",
+      "points": 20
+     },
+     {
+      "rule_id": "r4",
+      "label": "Mais de 10 funcionários",
+      "field_key": "funcionarios",
+      "points": 15
+     },
+     {
+      "rule_id": "r5",
+      "label": "Problema prioritário declarado",
+      "field_key": "problema",
+      "points": 15
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "modelo demo: nada atende → 0, frio",
+   "rules": [
+    {
+     "id": "r1",
+     "label": "Orçamento acima de R$ 5.000",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 25
+    },
+    {
+     "id": "r2",
+     "label": "Contratar em até 30 dias",
+     "field_key": "prazo",
+     "operator": "eq",
+     "condition": "ate_30",
+     "points": 25
+    },
+    {
+     "id": "r3",
+     "label": "Participa da decisão",
+     "field_key": "decisor",
+     "operator": "is_true",
+     "condition": null,
+     "points": 20
+    },
+    {
+     "id": "r4",
+     "label": "Mais de 10 funcionários",
+     "field_key": "funcionarios",
+     "operator": "gt",
+     "condition": 10,
+     "points": 15
+    },
+    {
+     "id": "r5",
+     "label": "Problema prioritário declarado",
+     "field_key": "problema",
+     "operator": "answered",
+     "condition": null,
+     "points": 15
+    }
+   ],
+   "answers": {
+    "orcamento": 1000,
+    "prazo": "mais_90",
+    "decisor": false,
+    "funcionarios": 5
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "modelo demo: 50 pontos → morno, não qualificado",
+   "rules": [
+    {
+     "id": "r1",
+     "label": "Orçamento acima de R$ 5.000",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 25
+    },
+    {
+     "id": "r2",
+     "label": "Contratar em até 30 dias",
+     "field_key": "prazo",
+     "operator": "eq",
+     "condition": "ate_30",
+     "points": 25
+    },
+    {
+     "id": "r3",
+     "label": "Participa da decisão",
+     "field_key": "decisor",
+     "operator": "is_true",
+     "condition": null,
+     "points": 20
+    },
+    {
+     "id": "r4",
+     "label": "Mais de 10 funcionários",
+     "field_key": "funcionarios",
+     "operator": "gt",
+     "condition": 10,
+     "points": 15
+    },
+    {
+     "id": "r5",
+     "label": "Problema prioritário declarado",
+     "field_key": "problema",
+     "operator": "answered",
+     "condition": null,
+     "points": 15
+    }
+   ],
+   "answers": {
+    "orcamento": 6000,
+    "prazo": "ate_30",
+    "decisor": false,
+    "funcionarios": 3
+   },
+   "expected": {
+    "raw_total": 50,
+    "score": 50,
+    "classification": "warm",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "r1",
+      "label": "Orçamento acima de R$ 5.000",
+      "field_key": "orcamento",
+      "points": 25
+     },
+     {
+      "rule_id": "r2",
+      "label": "Contratar em até 30 dias",
+      "field_key": "prazo",
+      "points": 25
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "modelo demo: exatamente 70 → quente e qualificado",
+   "rules": [
+    {
+     "id": "r1",
+     "label": "Orçamento acima de R$ 5.000",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 25
+    },
+    {
+     "id": "r2",
+     "label": "Contratar em até 30 dias",
+     "field_key": "prazo",
+     "operator": "eq",
+     "condition": "ate_30",
+     "points": 25
+    },
+    {
+     "id": "r3",
+     "label": "Participa da decisão",
+     "field_key": "decisor",
+     "operator": "is_true",
+     "condition": null,
+     "points": 20
+    },
+    {
+     "id": "r4",
+     "label": "Mais de 10 funcionários",
+     "field_key": "funcionarios",
+     "operator": "gt",
+     "condition": 10,
+     "points": 15
+    },
+    {
+     "id": "r5",
+     "label": "Problema prioritário declarado",
+     "field_key": "problema",
+     "operator": "answered",
+     "condition": null,
+     "points": 15
+    }
+   ],
+   "answers": {
+    "orcamento": 6000,
+    "prazo": "ate_30",
+    "decisor": true,
+    "funcionarios": 2
+   },
+   "expected": {
+    "raw_total": 70,
+    "score": 70,
+    "classification": "hot",
+    "qualified": true,
+    "applied": [
+     {
+      "rule_id": "r1",
+      "label": "Orçamento acima de R$ 5.000",
+      "field_key": "orcamento",
+      "points": 25
+     },
+     {
+      "rule_id": "r2",
+      "label": "Contratar em até 30 dias",
+      "field_key": "prazo",
+      "points": 25
+     },
+     {
+      "rule_id": "r3",
+      "label": "Participa da decisão",
+      "field_key": "decisor",
+      "points": 20
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "modelo demo: respostas ausentes viram dados ausentes (ordem das regras)",
+   "rules": [
+    {
+     "id": "r1",
+     "label": "Orçamento acima de R$ 5.000",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 25
+    },
+    {
+     "id": "r2",
+     "label": "Contratar em até 30 dias",
+     "field_key": "prazo",
+     "operator": "eq",
+     "condition": "ate_30",
+     "points": 25
+    },
+    {
+     "id": "r3",
+     "label": "Participa da decisão",
+     "field_key": "decisor",
+     "operator": "is_true",
+     "condition": null,
+     "points": 20
+    },
+    {
+     "id": "r4",
+     "label": "Mais de 10 funcionários",
+     "field_key": "funcionarios",
+     "operator": "gt",
+     "condition": 10,
+     "points": 15
+    },
+    {
+     "id": "r5",
+     "label": "Problema prioritário declarado",
+     "field_key": "problema",
+     "operator": "answered",
+     "condition": null,
+     "points": 15
+    }
+   ],
+   "answers": {
+    "orcamento": 9000
+   },
+   "expected": {
+    "raw_total": 25,
+    "score": 25,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "r1",
+      "label": "Orçamento acima de R$ 5.000",
+      "field_key": "orcamento",
+      "points": 25
+     }
+    ],
+    "missing": [
+     "prazo",
+     "decisor",
+     "funcionarios"
+    ]
+   }
+  },
+  {
+   "name": "modelo demo: orçamento exatamente 5000 não atende (gt)",
+   "rules": [
+    {
+     "id": "r1",
+     "label": "Orçamento acima de R$ 5.000",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 25
+    },
+    {
+     "id": "r2",
+     "label": "Contratar em até 30 dias",
+     "field_key": "prazo",
+     "operator": "eq",
+     "condition": "ate_30",
+     "points": 25
+    },
+    {
+     "id": "r3",
+     "label": "Participa da decisão",
+     "field_key": "decisor",
+     "operator": "is_true",
+     "condition": null,
+     "points": 20
+    },
+    {
+     "id": "r4",
+     "label": "Mais de 10 funcionários",
+     "field_key": "funcionarios",
+     "operator": "gt",
+     "condition": 10,
+     "points": 15
+    },
+    {
+     "id": "r5",
+     "label": "Problema prioritário declarado",
+     "field_key": "problema",
+     "operator": "answered",
+     "condition": null,
+     "points": 15
+    }
+   ],
+   "answers": {
+    "orcamento": 5000,
+    "prazo": "x",
+    "decisor": false,
+    "funcionarios": 1
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "limite de faixa: 0 pontos → cold",
+   "rules": [
+    {
+     "id": "b1",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 0
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "b1",
+      "label": "Base",
+      "field_key": "a",
+      "points": 0
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "limite de faixa: 39 pontos → cold",
+   "rules": [
+    {
+     "id": "b1",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 39
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": 39,
+    "score": 39,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "b1",
+      "label": "Base",
+      "field_key": "a",
+      "points": 39
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "limite de faixa: 40 pontos → warm",
+   "rules": [
+    {
+     "id": "b1",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 40
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": 40,
+    "score": 40,
+    "classification": "warm",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "b1",
+      "label": "Base",
+      "field_key": "a",
+      "points": 40
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "limite de faixa: 69 pontos → warm",
+   "rules": [
+    {
+     "id": "b1",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 69
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": 69,
+    "score": 69,
+    "classification": "warm",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "b1",
+      "label": "Base",
+      "field_key": "a",
+      "points": 69
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "limite de faixa: 70 pontos → hot",
+   "rules": [
+    {
+     "id": "b1",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 70
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": 70,
+    "score": 70,
+    "classification": "hot",
+    "qualified": true,
+    "applied": [
+     {
+      "rule_id": "b1",
+      "label": "Base",
+      "field_key": "a",
+      "points": 70
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "teto: soma 130 é limitada a 100",
+   "rules": [
+    {
+     "id": "c1",
+     "label": "Alto",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 80
+    },
+    {
+     "id": "c2",
+     "label": "Extra",
+     "field_key": "b",
+     "operator": "answered",
+     "condition": null,
+     "points": 50
+    }
+   ],
+   "answers": {
+    "a": "x",
+    "b": "y"
+   },
+   "expected": {
+    "raw_total": 130,
+    "score": 100,
+    "classification": "hot",
+    "qualified": true,
+    "applied": [
+     {
+      "rule_id": "c1",
+      "label": "Alto",
+      "field_key": "a",
+      "points": 80
+     },
+     {
+      "rule_id": "c2",
+      "label": "Extra",
+      "field_key": "b",
+      "points": 50
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "piso: total negativo é limitado a 0",
+   "rules": [
+    {
+     "id": "c3",
+     "label": "Penalidade",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": -30
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": -30,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "c3",
+      "label": "Penalidade",
+      "field_key": "a",
+      "points": -30
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "pontos negativos reduzem o total",
+   "rules": [
+    {
+     "id": "c4",
+     "label": "Bônus",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 60
+    },
+    {
+     "id": "c5",
+     "label": "Penalidade",
+     "field_key": "b",
+     "operator": "answered",
+     "condition": null,
+     "points": -20
+    }
+   ],
+   "answers": {
+    "a": "x",
+    "b": "y"
+   },
+   "expected": {
+    "raw_total": 40,
+    "score": 40,
+    "classification": "warm",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "c4",
+      "label": "Bônus",
+      "field_key": "a",
+      "points": 60
+     },
+     {
+      "rule_id": "c5",
+      "label": "Penalidade",
+      "field_key": "b",
+      "points": -20
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "eq ignora maiúsculas",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "seg",
+     "operator": "eq",
+     "condition": "Varejo",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "seg": "varejo"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "seg",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "eq compara número com texto numérico",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "eq",
+     "condition": "5",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 5
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "n",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "eq diferente → não aplica",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "seg",
+     "operator": "eq",
+     "condition": "Varejo",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "seg": "servicos"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "neq verdadeiro",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "seg",
+     "operator": "neq",
+     "condition": "varejo",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "seg": "servicos"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "seg",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "neq falso",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "seg",
+     "operator": "neq",
+     "condition": "varejo",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "seg": "Varejo"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "in encontra (sem diferenciar maiúsculas)",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "uf",
+     "operator": "in",
+     "condition": [
+      "SP",
+      "RJ"
+     ],
+     "points": 10
+    }
+   ],
+   "answers": {
+    "uf": "rj"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "uf",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "in não encontra",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "uf",
+     "operator": "in",
+     "condition": [
+      "SP",
+      "RJ"
+     ],
+     "points": 10
+    }
+   ],
+   "answers": {
+    "uf": "MG"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "in com multisseleção: alguma escolha na lista",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "interesses",
+     "operator": "in",
+     "condition": [
+      "a",
+      "b"
+     ],
+     "points": 10
+    }
+   ],
+   "answers": {
+    "interesses": [
+     "c",
+     "b"
+    ]
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "interesses",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "not_in verdadeiro",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "uf",
+     "operator": "not_in",
+     "condition": [
+      "SP"
+     ],
+     "points": 10
+    }
+   ],
+   "answers": {
+    "uf": "MG"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "uf",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "not_in falso",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "uf",
+     "operator": "not_in",
+     "condition": [
+      "SP"
+     ],
+     "points": 10
+    }
+   ],
+   "answers": {
+    "uf": "sp"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "gte no limite",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "gte",
+     "condition": 10,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 10
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "n",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "gt no limite não atende",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "gt",
+     "condition": 10,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 10
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "lt no limite não atende",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "lt",
+     "condition": 10,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 10
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "lt abaixo atende",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "lt",
+     "condition": 10,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 9.99
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "n",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "lte no limite",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "lte",
+     "condition": 10,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 10
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "n",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "between inclui o mínimo",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "between",
+     "condition": {
+      "min": 10,
+      "max": 50
+     },
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 10
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "n",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "between inclui o máximo",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "between",
+     "condition": {
+      "min": 10,
+      "max": 50
+     },
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 50
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "n",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "between fora do intervalo",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "n",
+     "operator": "between",
+     "condition": {
+      "min": 10,
+      "max": 50
+     },
+     "points": 10
+    }
+   ],
+   "answers": {
+    "n": 51
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "número com vírgula decimal em texto",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "orcamento": "7500,5"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "orcamento",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "texto não numérico em comparação numérica não aplica (e não é \"ausente\")",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "orcamento",
+     "operator": "gt",
+     "condition": 5000,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "orcamento": "muito"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "contains em texto ignora maiúsculas",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "nota",
+     "operator": "contains",
+     "condition": "URGENTE",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "nota": "pedido urgente hoje"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "nota",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "contains em multisseleção",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "interesses",
+     "operator": "contains",
+     "condition": "b",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "interesses": [
+     "a",
+     "b"
+    ]
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "interesses",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "contains sem o trecho",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "nota",
+     "operator": "contains",
+     "condition": "xyz",
+     "points": 10
+    }
+   ],
+   "answers": {
+    "nota": "pedido urgente"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "is_true marcado",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "aceite",
+     "operator": "is_true",
+     "condition": null,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "aceite": true
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "aceite",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "is_true desmarcado não aplica",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "aceite",
+     "operator": "is_true",
+     "condition": null,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "aceite": false
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "answered com resposta",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "x",
+     "operator": "answered",
+     "condition": null,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "x": "a"
+   },
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "x",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "answered com texto vazio não aplica",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "x",
+     "operator": "answered",
+     "condition": null,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "x": "   "
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "not_answered sem resposta aplica",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "cnpj",
+     "operator": "not_answered",
+     "condition": null,
+     "points": 10
+    }
+   ],
+   "answers": {},
+   "expected": {
+    "raw_total": 10,
+    "score": 10,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "o1",
+      "label": "Regra",
+      "field_key": "cnpj",
+      "points": 10
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "not_answered com resposta não aplica",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "cnpj",
+     "operator": "not_answered",
+     "condition": null,
+     "points": 10
+    }
+   ],
+   "answers": {
+    "cnpj": "123"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "resposta ausente em comparação: regra não se aplica e vira dado ausente",
+   "rules": [
+    {
+     "id": "o1",
+     "label": "Regra",
+     "field_key": "x",
+     "operator": "gt",
+     "condition": 1,
+     "points": 10
+    }
+   ],
+   "answers": {},
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": [
+     "x"
+    ]
+   }
+  },
+  {
+   "name": "regra desativada é ignorada",
+   "rules": [
+    {
+     "id": "d1",
+     "label": "Desativada",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 50,
+     "enabled": false
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "campo oculto pela lógica não vira dado ausente",
+   "rules": [
+    {
+     "id": "h1",
+     "label": "Oculto",
+     "field_key": "x",
+     "operator": "gt",
+     "condition": 1,
+     "points": 10
+    }
+   ],
+   "answers": {},
+   "hidden": [
+    "x"
+   ],
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": []
+   }
+  },
+  {
+   "name": "dado ausente aparece uma vez só",
+   "rules": [
+    {
+     "id": "h1",
+     "label": "Oculto",
+     "field_key": "x",
+     "operator": "gt",
+     "condition": 1,
+     "points": 10
+    },
+    {
+     "id": "h2",
+     "label": "Outro",
+     "field_key": "x",
+     "operator": "lt",
+     "condition": 5,
+     "points": 10
+    }
+   ],
+   "answers": {},
+   "expected": {
+    "raw_total": 0,
+    "score": 0,
+    "classification": "cold",
+    "qualified": false,
+    "applied": [],
+    "missing": [
+     "x"
+    ]
+   }
+  },
+  {
+   "name": "faixas personalizadas: 65 é quente mas não qualifica (qualified_min 80)",
+   "rules": [
+    {
+     "id": "t1",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 65
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "thresholds": {
+    "warm_min": 30,
+    "hot_min": 60,
+    "qualified_min": 80
+   },
+   "expected": {
+    "raw_total": 65,
+    "score": 65,
+    "classification": "hot",
+    "qualified": false,
+    "applied": [
+     {
+      "rule_id": "t1",
+      "label": "Base",
+      "field_key": "a",
+      "points": 65
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "faixas omitidas: padrão 40/70/70",
+   "rules": [
+    {
+     "id": "t2",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 70
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "thresholds": {},
+   "expected": {
+    "raw_total": 70,
+    "score": 70,
+    "classification": "hot",
+    "qualified": true,
+    "applied": [
+     {
+      "rule_id": "t2",
+      "label": "Base",
+      "field_key": "a",
+      "points": 70
+     }
+    ],
+    "missing": []
+   }
+  },
+  {
+   "name": "qualificação independe da classe (qualified_min 30 com 35 pontos)",
+   "rules": [
+    {
+     "id": "t3",
+     "label": "Base",
+     "field_key": "a",
+     "operator": "answered",
+     "condition": null,
+     "points": 35
+    }
+   ],
+   "answers": {
+    "a": "x"
+   },
+   "thresholds": {
+    "warm_min": 40,
+    "hot_min": 70,
+    "qualified_min": 30
+   },
+   "expected": {
+    "raw_total": 35,
+    "score": 35,
+    "classification": "cold",
+    "qualified": true,
+    "applied": [
+     {
+      "rule_id": "t3",
+      "label": "Base",
+      "field_key": "a",
+      "points": 35
+     }
+    ],
+    "missing": []
+   }
+  }
+ ],
+ "invalid": [
+  {
+   "name": "regras que não são lista",
+   "rules": {},
+   "answers": {}
+  },
+  {
+   "name": "faixa morna maior ou igual à quente",
+   "rules": [],
+   "answers": {},
+   "thresholds": {
+    "warm_min": 70,
+    "hot_min": 40
+   }
+  },
+  {
+   "name": "faixa quente acima de 100",
+   "rules": [],
+   "answers": {},
+   "thresholds": {
+    "warm_min": 40,
+    "hot_min": 101
+   }
+  },
+  {
+   "name": "faixa morna zero",
+   "rules": [],
+   "answers": {},
+   "thresholds": {
+    "warm_min": 0,
+    "hot_min": 70
+   }
+  },
+  {
+   "name": "qualificação acima de 100",
+   "rules": [],
+   "answers": {},
+   "thresholds": {
+    "warm_min": 40,
+    "hot_min": 70,
+    "qualified_min": 101
+   }
+  }
+ ]
+}
